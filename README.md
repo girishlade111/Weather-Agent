@@ -1,30 +1,77 @@
-# Build agent with v0
+# Weather Agent
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+A simple conversational weather demo built with Next.js — type a natural-language prompt like "What's the weather like in London?" and get a weather-style answer back, powered by Next.js Server Actions.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/gileb64375-5584s-projects/v0-build-agent-with-v0)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/sV2degZ4AlP)
+## What it does
 
-## Overview
+- Natural-language weather prompt box: enter any question containing a city (e.g. `How's the weather in Paris?`)
+- Naive location extraction on the server — grabs the text after the last "in"
+- Returns a weather sentence with a simulated temperature (5–35 °C), rendered below the form
+- Form state handled with React `useActionState` + `useFormStatus` (pending/disabled submit button)
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+> Note: this is a demo app — temperatures are randomly generated placeholders, not real weather data. To make it live, wire `getWeatherAction` in `app/actions.ts` to a real provider such as OpenWeatherMap.
+
+## Features
+
+- Client + server component split (`page.tsx` client, `actions.ts` server action)
+- Tailwind CSS UI (responsive card layout)
+- Radix UI component set available via shadcn-style `components/` and `lib/utils.ts`
+- Dark/light theme support (`components/theme-provider.tsx`)
+
+## Tech stack
+
+- **Next.js 15** (App Router, Server Actions)
+- **React 19**
+- **TypeScript**
+- **Tailwind CSS 3.4** (+ `tailwindcss-animate`)
+- **Radix UI**, `lucide-react`, `sonner`, `recharts`, `react-hook-form`, `zod`
+- Package manager: pnpm (lockfile included; npm works too)
+
+## Quick start
+
+```bash
+# install dependencies
+npm install
+# or: pnpm install
+
+# run the dev server
+npm run dev
+```
+
+Open http://localhost:3000 and try a prompt like `What's the weather in Tokyo?`.
+
+Production build:
+
+```bash
+npm run build
+npm run start
+```
+
+## Project structure
+
+```
+app/            # App Router: layout.tsx, page.tsx (client form), actions.ts (server action)
+components/     # UI components (theme-provider, shadcn-style primitives)
+lib/            # shared utilities (utils.ts)
+public/         # static assets / placeholders
+styles/         # global styles (also app/globals.css)
+next.config.mjs # Next.js config (eslint/ts errors ignored during builds, unoptimized images)
+```
+
+## Environment variables
+
+None required. If you connect a real weather API later, add the key to a `.env.local` file (already git-ignored) and read it inside `app/actions.ts`.
 
 ## Deployment
 
-Your project is live at:
+Deploy on any platform that runs Next.js with Server Actions support (Vercel, or any Node host):
 
-**[https://vercel.com/gileb64375-5584s-projects/v0-build-agent-with-v0](https://vercel.com/gileb64375-5584s-projects/v0-build-agent-with-v0)**
+```bash
+npm run build && npm run start
+```
 
-## Build your app
+Static export is **not** possible — the app uses Next.js Server Actions, which require a running server.
 
-Continue building your app on:
+---
 
-**[https://v0.app/chat/projects/sV2degZ4AlP](https://v0.app/chat/projects/sV2degZ4AlP)**
-
-## How It Works
-
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Built by Girish Lade · https://ladestack.in
