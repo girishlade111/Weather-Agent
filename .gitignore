@@ -5,7 +5,7 @@
 
 # next.js
 /.next/
-/out/
+# /out/  # temporarily disabled: built output deployed at repo root for GitHub Pages
 
 # production
 /build
