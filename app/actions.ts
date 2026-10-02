@@ -1,4 +1,4 @@
-"use server"
+// Pure client-safe function (no "use server") so the app can be statically exported.
 
 export async function getWeatherAction(_previousState: { result: string }, formData: FormData) {
   console.log("[SERVER] getWeatherAction invoked")
